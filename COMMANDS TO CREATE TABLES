@@ -1,0 +1,103 @@
+SQL COMMANDS TO CREATE TABLES:
+
+create schema Uber_Eats;
+Use Uber_Eats;
+Create table user(user_ID Varchar(60) not null, name Varchar(60) not null,
+password Varchar(60) not null, Primary key (user_ID)
+);
+
+
+Create Table delivery_Driver(deliverydriver_ID varchar(60) not null, Phone_number varchar(15) not null,
+name varchar(30) not null, Vehicle_number varchar(20) not null, Vehicle_type varchar(30) not null, primary key (deliverydriver_ID)
+);
+Create table promo_code(promocode_ID int not null, name varchar(50) not null,
+expiration date not null,
+discount decimal(10,2) not null default 0, primary key (promocode_ID)
+);
+
+
+Create table payment(payment_ID int not null, Payment_time datetime not null,
+Amount decimal(9,2) not null,
+ 
+payment_method varchar(60)not null, Primary key (payment_ID));
+
+Create table restaurants(restaurant_ID int not null, name varchar(60) not null,
+Location varchar(40) not null, Restaurant_timings varchar(50) not null, Primary key (restaurant_ID)
+);
+
+
+Create table deliveryaddress(deliveryaddr_ID int not null, Address varchar(50) not null,
+AptNo varchar(20),
+City varchar(50)not null, state varchar(50)not null, country char(40) not null, postal_code int not null,
+primary key (deliveryaddr_ID)
+);
+
+
+Create table contact(contact_ID varchar(60) not null, phone_num varchar(15) not null,
+Email varchar(100),
+user_ID varchar(60) not null, primary key (contact_ID));
+
+Create table orderitems(orderitem_ID int not null,
+ 
+Name varchar(40) not null , restaurant_ID int not null, Description varchar(150) not null , Primary key (orderitem_ID),
+Foreign key (restaurant_ID) REFERENCES restaurants(restaurant_ID) ON DELETE CASCADE);
+Create Table delivery(delivery_ID int not null, Delivery_time datetime not null, Delivery_Status Varchar(60) not null, deliverydriver_ID varchar(60) not null, deliveryaddr_ID int not null,
+primary key (delivery_ID),
+Foreign key (deliverydriver_ID) REFERENCES delivery_driver(deliverydriver_ID) ON DELETE CASCADE,
+Foreign key (deliveryaddr_ID) REFERENCES deliveryaddress(deliveryaddr_ID) ON DELETE CASCADE
+);
+
+
+Create table orders(order_ID int not null, Status varchar(50) not null, restaurant_ID int not null,
+user_ID varchar(60) not null, payment_ID int not null, delivery_ID int not null,
+total_amount Decimal(10,2) not null, primary key(order_ID),
+FOREIGN KEY (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE,
+ 
+FOREIGN KEY (restaurant_ID) REFERENCES Restaurants(restaurant_ID) ON DELETE CASCADE,
+FOREIGN KEY (payment_ID) REFERENCES Payment(payment_ID) ON DELETE CASCADE, FOREIGN KEY (delivery_ID) REFERENCES Delivery(delivery_ID) ON DELETE CASCADE
+);
+
+
+
+
+Create table orderdetails(orderdetails_ID int not null, order_ID int not null,
+ordertime datetime not null, deliverytime datetime not null, primary key (orderdetails_ID),
+Foreign key (order_ID) REFERENCES orders(order_ID) ON DELETE CASCADE
+);
+
+
+Create table reviews(review_ID int not null, Rating int not null,
+comments varchar(500) not null, user_ID varchar(60) not null, restaurant_ID int not null, deliverydriver_ID varchar(60) not null, Primary key (review_ID),
+Foreign key (deliverydriver_ID) REFERENCES delivery_driver(deliverydriver_ID) ON DELETE CASCADE,
+Foreign key (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE,
+Foreign key (restaurant_ID) REFERENCES restaurants(restaurant_ID) ON DELETE CASCADE
+ 
+);
+
+
+Create table order_promocode(order_ID int not null, promocode_ID int not null,
+primary key(order_ID , promocode_ID),
+Foreign key (order_ID) REFERENCES orders(order_ID) ON DELETE CASCADE, Foreign key (promocode_ID) REFERENCES promo_code(promocode_ID) ON DELETE CASCADE
+);
+Create table user_promocode(User_ID varchar(60) not null, promocode_ID int not null,
+primary key(user_ID, promocode_ID),
+Foreign key (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE,
+Foreign key (promocode_ID) REFERENCES promo_code(promocode_ID) ON DELETE CASCADE
+);
+Create table cart(cart_ID int not null, user_ID varchar(60) not null, Primary key(Cart_ID),
+Foreign key (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE);
+
+
+Create table cartitem(cart_ID int not null, OrderItem_ID int not null,
+quantity int not null,
+Primary key(cart_ID, OrderItem_ID),
+Foreign key (cart_ID) REFERENCES cart(cart_ID) ON DELETE CASCADE,
+Foreign key (orderitem_ID) REFERENCES orderitems(orderitem_ID) ON DELETE CASCADE
+ 
+);
+
+
+Create table uberone_membership(membership_ID Varchar(20) not null, Expirationdate date not null,
+user_ID varchar(60) not null, Primary key(membership_ID),
+Foreign key (user_ID) REFERENCES user(user_ID) ON DELETE CASCADE
+);
