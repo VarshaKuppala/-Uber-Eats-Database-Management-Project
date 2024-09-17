@@ -1,0 +1,48 @@
+Code for inserting the data into tables:
+
+Use Uber_Eats;
+INSERT INTO user (user_ID, name, password)
+VALUES ('user1', 'John Doe', 'password1'),('user2', 'Jane Smith', 'password2'),('user3', 'Michael Johnson', 'password3');
+Select * from user;
+INSERT INTO delivery_driver (deliverydriver_ID, Phone_number, name, Vehicle_number, Vehicle_type)
+VALUES ('driver1', '1234567890', 'John Driver', 'ABC123', 'Car'),('driver2', '9876543210', 'Jane
+Driver', 'XYZ789', 'Bike'), ('driver3', '4567891230', 'Michael Driver', 'DEF456', 'Car'); Select * from delivery_driver;
+INSERT INTO promo_code (promocode_ID, name, expiration, discount)
+VALUES (1, 'SUMMER10', '2023-08-31', 0.10),(2, 'WELCOME15', '2023-12-31', 0.15),(3,
+'SAVEMORE20', '2023-10-15', 0.20);
+Select * from promo_code;
+INSERT INTO payment (payment_ID, Payment_time, Amount, payment_method) VALUES (1, '2023-05-07 10:15:00', 25.99, 'Credit Card'),(2, '2023-05-06 15:30:00', 15.50,
+'PayPal'),(3, '2023-05-05 12:45:00', 10.75, 'Cash');
+Select * from payment;
+INSERT INTO deliveryaddress (deliveryaddr_ID, Address, AptNo, City, state, country, postal_code)
+VALUES (1, '123 First St', 'Apt 1', 'City A', 'State A', 'Country A', 12345),(2, '456 Second St', NULL, 'City B', 'State B', 'Country B', 67890),(3, '789 Third St', 'Apt 3', 'City C', 'State C', 'Country C',
+ 54321);
+Select * from deliveryaddress;
+INSERT INTO contact (contact_ID, phone_num, Email, user_ID)
+VALUES ('contact1', '1234567890', 'john@example.com', 'user1'),('contact2', '9876543210', 'jane@example.com', 'user2'),('contact3', '4567891230', 'michael@example.com', 'user3'); Select * from contact;
+INSERT INTO orderitems (orderitem_ID, Name, restaurant_ID, Description)
+VALUES (1, 'Item A', 1, 'Description for Item A'),(2, 'Item B', 2, 'Description for Item B'),(3, 'Item C', 3, 'Description for Item C');
+Select * from orderitems;
+INSERT INTO delivery (delivery_ID, Delivery_time, Delivery_Status, deliverydriver_ID, deliveryaddr_ID)
+VALUES (1, '2023-05-07 12:00:00', 'Delivered', 'driver1', 1),(2, '2023-05-08 15:30:00', 'In Transit',
+'driver2', 2),(3, '2023-05-09 18:45:00', 'Pending', 'driver3', 3); Select * from delivery;
+INSERT INTO orders (order_ID, Status, restaurant_ID, user_ID, payment_ID, delivery_ID, total_amount)
+VALUES (1, 'Pending', 1, 'user1', 1, 1, 20.50),(2, 'Delivered', 2, 'user2', 2, 2, 35.75),(3, 'Cancelled',
+3, 'user3', 3, 3, 15.25);
+Select * from orders;
+INSERT INTO orderdetails (orderdetails_ID, order_ID, ordertime, deliverytime)
+VALUES (1, 1, '2023-05-07 11:45:00', '2023-05-07 12:30:00'),(2, 2, '2023-05-08 15:00:00', '2023-
+05-08 16:00:00'),(3, 3, '2023-05-09 18:30:00', '2023-05-09 19:15:00');
+Select * from orderdetails;
+INSERT INTO reviews (review_ID, Rating, comments, user_ID, restaurant_ID, deliverydriver_ID) VALUES (1, 4, 'Great experience!', 'user1', 1, 'driver1'),(2, 3, 'Average service.', 'user2', 2, 'driver2'),(3, 5, 'Excellent food and delivery!', 'user3', 3, 'driver3');
+Select * from reviews;
+INSERT INTO order_promocode (order_ID, promocode_ID) VALUES (1, 1),(2, 2),(3, 3);
+Select * from order_promocode;
+INSERT INTO user_promocode (user_ID, promocode_ID) VALUES ('user1', 1),('user2', 2),('user3', 3);
+Select * from user_promocode;
+INSERT INTO cart (cart_ID, user_ID) VALUES (1, 'user1'),(2, 'user2'),(3, 'user3');
+Select * from cart;
+INSERT INTO cartitem (cart_ID, OrderItem_ID, quantity) VALUES (1, 1, 2),(2, 2, 1),(3, 3, 3);
+Select * from cartitem;
+INSERT INTO uberone_membership (membership_ID, Expirationdate, user_ID) VALUES ('membership1', '2023-12-31', 'user1'),('membership2', '2023-11-30',
+'user2'),('membership3', '2023-10-31', 'user3'); Select * from uberone_membership;
