@@ -1,0 +1,34 @@
+STORED PROCEDURES
+
+1.	Stored procedure to GetOrderStatus
+The first procedure we created is this GetOrderStatus Use Uber_Eats;
+DELIMITER //
+CREATE PROCEDURE GetOrderStatus(IN orderID INT) BEGIN
+DECLARE orderStatus VARCHAR(50);
+
+SELECT Status INTO orderStatus FROM orders
+WHERE order_ID = orderID;
+
+SELECT orderStatus;
+END //
+DELIMITER ;
+CALL GetOrderStatus(1);
+
+Output for the Stored procedure to GetOrderStatus:
+We can see that the stored procedure has been executed successfully.
+
+
+2.	Stored procedure to GetRestaurantReviews
+
+The second procedure we created is this GetRestaurantReviews Use Uber_Eats;
+DELIMITER //
+CREATE PROCEDURE GetRestaurantReviews(IN restaurantID INT) BEGIN
+SELECT *
+FROM reviews
+WHERE restaurant_ID = restaurantID; END //
+DELIMITER ;
+CALL GetRestaurantReviews(2);
+
+Output for the Stored procedure to GetRestaurantReviews:
+We can see that the stored procedure has been executed successfully.
+
