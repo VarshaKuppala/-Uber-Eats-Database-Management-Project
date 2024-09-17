@@ -1,0 +1,45 @@
+Triggers:
+
+1.	Trigger to CalculateAverageRating:
+
+Trigger that we created is the CalculateAverageRating trigger Use Uber_Eats;
+DELIMITER //
+CREATE TRIGGER CalculateAverageRating AFTER INSERT ON reviews FOR EACH ROW
+BEGIN
+DECLARE avgRating DECIMAL(10, 2);
+
+SELECT AVG(Rating) INTO avgRating FROM reviews
+WHERE restaurant_ID = NEW.restaurant_ID;
+
+UPDATE restaurants
+SET average_rating = avgRating
+WHERE restaurant_ID = NEW.restaurant_ID; END //
+DELIMITER ;
+
+Output for Trigger to CalculateAverageRating:
+ 
+We can see that the trigger has been executed successfully
+
+
+2.	Trigger to UpdateOrderStatus:
+Another trigger that we created is the UpdateOrderStatus trigger Use Uber_Eats;
+DELIMITER //
+CREATE TRIGGER UpdateOrderStatus AFTER UPDATE ON orders FOR EACH ROW
+BEGIN
+IF NEW.Status = 'Delivered' THEN
+INSERT INTO reviews (Rating, comments, user_ID, restaurant_ID, deliverydriver_ID) VALUES (NULL, NULL, NEW.user_ID, NEW.restaurant_ID, NEW.delivery_ID);
+END IF;
+END // DELIMITER ;
+
+Output for Trigger to UpdateOrderStatus:
+
+We can see that the trigger has been executed successfully
+
+
+
+
+
+
+Conclusion:
+
+We have completed all the requirements and the steps of the project in order to successfully represent the Uber Eats Database.
